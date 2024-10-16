@@ -4,5 +4,16 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @if (User.Identity.IsAuthenticated)
+
+    {
+        <h2>Estas Autenticado</h2>
+
+    }
+
+    else
+
+    {
+        <h2>Inicia Sesion</h2>
+    }
 </div>
