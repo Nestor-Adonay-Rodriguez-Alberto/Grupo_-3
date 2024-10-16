@@ -1,0 +1,138 @@
+﻿@model Transferencia_Datos.Producto_DTO.Registrados_Producto
+
+@{
+    ViewData["Title"] = "REGISTROS";
+}
+
+<style>
+    /* Estilos Del Cuadro */
+    .form-container {
+        max-width: 650px;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        margin-top: 20px;
+    }
+
+        /* Estilos Para h1 */
+        .form-container h1 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .form-container .row {
+            margin-bottom: 10px;
+        }
+
+        .form-container label {
+            font-weight: bold;
+        }
+</style>
+
+
+<!-- CUERPO HTML -->
+<div class="form-container">
+    <h1>Productos Registrados</h1><br />
+
+    <p>
+        <a asp-action="Registrar_Producto" class="btn btn-dark">Registrar Nuevo</a>
+    </p>
+
+    <div class="table-responsive">
+
+        <table class="table table-striped">
+
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("NOMBRE")
+                    </th>
+                    <th>
+                        @Html.DisplayName("PRECIO")
+                    </th>
+                    <th>
+                        @Html.DisplayName("IMAGEN")
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model.Lista_Productos)
+
+                {
+                    <tr>
+                        <!-- ATRIBUTOS -->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @item.Precio.ToString("C");
+                        </td>
+                        <td>
+                            @{
+                                // Es La Imagen En Base64
+
+                                string Imagen_Mostar = "";
+
+
+
+                                if (item.Fotografia != null && item.Fotografia.Length > 0)
+
+                                {
+
+                                    string Cadena_Imagen = Convert.ToBase64String(item.Fotografia);
+
+                                    Imagen_Mostar = "data:image/jpeg;base64," + Cadena_Imagen;
+
+                                    <img src="@Imagen_Mostar" style="max-width:100px; max-height:100px" />
+
+                                }
+
+                                else
+
+                                {
+                                    <img src="~/img/defecto.jpg" style="max-width:100px; max-height:100px" />
+                                }
+                            }
+                        </td>
+
+                        <!-- BOTONES -->
+                        <td>
+                            <div class="d-flex flex-wrap">
+                                <div class="btn-group">
+                                    <a asp-action="Editar_Producto" asp-route-id="@item.IdProducto" class="btn btn-primary rounded">Editar</a>
+                                    <a asp-action="Detalle_Producto" asp-route-id="@item.IdProducto" class="btn btn-secondary rounded">Detalles</a>
+                                    <a asp-action="Eliminar_Producto" asp-route-id="@item.IdProducto" class="btn btn-danger rounded">Eliminar</a>
+                                </div>
+                                <style>
+                                    .btn-group {
+                                        display: flex;
+                                        gap: 5px;
+                                    }
+
+                                    .btn {
+                                        flex: 1;
+                                        border-radius: 5px;
+                                    }
+                                </style>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

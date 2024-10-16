@@ -1,0 +1,103 @@
+﻿@model Transferencia_Datos.Seguridad_DTO.Login
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    /* Estilos Para Cuadro */
+    .form-container {
+        max-width: 400px;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: auto;
+        margin-top: 100px;
+        opacity: 0.6; /* nivel de transparencia  */
+    }
+
+        .form-container h1 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .form-container .row {
+            margin-bottom: 10px;
+        }
+
+        .form-container label {
+            font-weight: bold;
+        }
+
+    .error-message {
+        color: red;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+
+
+    .custom-body {
+        background-image: url("/img/Fotologin2.jpg"); /* Ruta de la imagen de fondo */
+        background-size: cover; /* Ajusta el tamaño de la imagen para cubrir todo el cuerpo */
+        background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+    }
+
+</style>
+
+<div class="form-container">
+    <h1>Login</h1>
+    <br />
+
+    <h5>Ingresa Tus Datos</h5>
+    <hr />
+    <form asp-action="Login">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <!-- FILA #1 -->
+        <div class="row">
+
+            <div class="form-group col-md-12">
+                <label class="control-label">EMAIL:</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+
+        </div>
+
+        <!-- FILA #2 -->
+        <div class="row">
+
+            <div class="form-group col-md-5">
+                <label class="control-label">CONTRASEÑA:</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+        </div><br />
+
+        <!-- BOTONES -->
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div class="d-flex flex-column">
+                    <input type="submit" value="LOGIN" class="btn btn-primary mb-2" />
+                    <div class="error-message">
+                        @ViewBag.Error
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
