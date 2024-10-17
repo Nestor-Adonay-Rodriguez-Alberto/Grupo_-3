@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/UI_MVC.styles.css" asp-append-version="true" />
+
+    <!-- LLamamos Los Estilos de CSS-->
+    <link rel="stylesheet" href="~/css/styles.css">
+
+
+    <!-- Bibioteca De Iconos -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body class="custom-body">
+
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" asp-controller="Home" asp-action="Index">API RESTful MVC</a>
+
+        <!-- Menu Desplegable -->
+        <div class="d-flex">
+            <button class="btn btn-link btn-sm order-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars" style="font-size: 24px;"></i></button>
+        </div>
+
+
+        <!-- Perfil -->
+        <ul class="navbar-nav ms-auto me-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw" style="font-size: 24px;"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a class="dropdown-item" asp-controller="Empleado" asp-action="Perfil">Perfil</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" asp-controller="Autenticacion" asp-action="Login">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="dropdown-item" asp-controller="Autenticacion" asp-action="Login">Login</a></li>
+                    }
+                </ul>
+            </li>
+        </ul>
+
+    </nav>
+
+    <div id="layoutSidenav">
+
+        <!-- Panel De Control -->
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+
+                <!-- Menu De Navegacion-->
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <div class="sb-sidenav-menu-heading">MENU:</div>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                HOME
+                            </a>
+                        </li>
+
+                        <!-- Seguridad Al Menu -->
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    PRIVACY
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Rol" asp-action="Roles_Registrados">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    ROLES
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Empleado" asp-action="Empleados_Registrados">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    EMPLEADOS
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Producto" asp-action="Productos_Registrados">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    PRODUCTOS
+                                </a>
+                            </li>
+                        }
+
+                    </div>
+                </div>
+
+                <!-- Base Del Menu -->
+                <div class="sb-sidenav-footer">
+                    <div class="small"></div>
+                    API RESTful
+                </div>
+
+
+            </nav>
+        </div>
+
+
+        <!-- Cuerpo Del HTML-->
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <!-- Aquí se renderizan las vistas de contenido -->
+                    <div class="container">
+                        <main role="main" class="pb-3">
+                            @RenderBody()
+                        </main>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+
+    </div>
+
+
+    <!-- Biblioteca de Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="..." crossorigin="anonymous"></script>
+    <!-- LLamamos los script  -->
+    <script src="~/js/scripts.js"></script>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
